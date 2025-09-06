@@ -10,6 +10,8 @@ const Header = () => {
     const cache = useSelector(store => store.cache)
     const dispatch = useDispatch()
 
+    console.log(searchQuery)
+
     const handleMenuClick = () => {
         dispatch(toggleSidebar())
     }
@@ -30,6 +32,11 @@ const Header = () => {
         const json = await data.json();
         setSuggestions(json[1])
         dispatch(cacheResults({ [searchQuery]: json[1] }))
+    }
+
+    const handleSearchBarValue = (value) => {
+        console.log(value)
+        setSearchQuery(value)
     }
 
     return (
@@ -63,10 +70,14 @@ const Header = () => {
                 </div>
                 {
                     showSuggestions && searchQuery &&
-                    <div className='absolute flex justify-start bg-white w-[29rem] ml-52 shadow-lg rounded-lg'>
+                    <div className='absolute flex justify-start bg-white w-[29rem] ml-52 shadow-lg rounded-lg z-50'>
                         <ul>
                             {
-                                suggestions?.map((suggestion,index) => <li key={index} onClick={() => setSearchQuery(suggestion)}
+                                suggestions?.map((suggestion, index) => <li key={index}
+                                    onMouseDown={() => {
+                                        console.log("Clicked:", suggestion);
+                                        setSearchQuery(suggestion);
+                                    }}
                                     className='p-2 mx-1 w-full hover:bg-gray-100'>
                                     🔍 {suggestion}
                                 </li>)
