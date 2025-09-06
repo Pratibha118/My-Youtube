@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { closeSidebar } from '../utils/slices/appSlice'
 import { useSearchParams } from 'react-router-dom'
+import CommentsContainer from './CommentsContainer'
 
 const WatchPage = () => {
     const dispatch = useDispatch()
@@ -13,6 +14,7 @@ const WatchPage = () => {
     }, [])
 
     return (
+        <div>
         <div className='p-2'>
             <iframe width="800"
                 height="400"
@@ -26,6 +28,8 @@ const WatchPage = () => {
                 >
 
                 </iframe>
+        </div>
+        <CommentsContainer />
         </div>
     )
 }
